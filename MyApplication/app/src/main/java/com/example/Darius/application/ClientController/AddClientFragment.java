@@ -1,4 +1,4 @@
-package com.example.Darius.application.ClientController;
+package com.example.darius.application.ClientController;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,8 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import com.example.Darius.application.Database.DBController;
-import com.example.Darius.myapplication.R;
+import com.example.darius.application.Database.DBController;
+import com.example.darius.myapplication.R;
 
 import org.json.JSONArray;
 
@@ -48,12 +48,12 @@ public class AddClientFragment extends Fragment {
         final EditText Age=(EditText) v.findViewById(R.id.ClientAge);
         final EditText Phone=(EditText) v.findViewById(R.id.ClientPhone);
         final Spinner spinner=(Spinner) v.findViewById(R.id.cspinner);
-        final Button addClientButton=(Button) v.findViewById(R.id.AddClientButton);
+        final Button AddClientButton=(Button) v.findViewById(R.id.AddClientButton);
         final ArrayList<String> items=getCountries("countries.json");
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item,items);
         spinner.setAdapter(adapter);
         dbController=new DBController();
-        addClientButton.setOnClickListener(new View.OnClickListener() {
+        AddClientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isOnline()) {
@@ -78,7 +78,7 @@ public class AddClientFragment extends Fragment {
                         return;
                     }
                     final ProgressDialog progDailog = ProgressDialog.show(
-                            getActivity(), "Add client", "Register client...", true);
+                            getActivity(), "Add Client", "Register Client...", true);
                     new Thread() {
                         public void run() {
                             try {

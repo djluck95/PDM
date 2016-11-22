@@ -1,4 +1,4 @@
-package com.example.Darius.application.Authentication;
+package com.example.darius.application.Authentication;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,10 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Darius.application.Database.DBController;
-import com.example.Darius.application.Model.User;
-import com.example.Darius.application.ClientController.MainActivity;
-import com.example.Darius.myapplication.R;
+import com.example.darius.application.Database.DBController;
+import com.example.darius.application.Model.User;
+import com.example.darius.application.ClientController.MainActivity;
+import com.example.darius.myapplication.R;
 public class LoginActivity extends Activity {
 
     Button loginButton;

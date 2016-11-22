@@ -1,4 +1,4 @@
-package com.example.Darius.application.ClientController;
+package com.example.darius.application.ClientController;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.Darius.application.Authentication.LoginActivity;
-import com.example.Darius.myapplication.R;
+import com.example.darius.application.Authentication.LoginActivity;
+import com.example.darius.myapplication.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_addClient) {
+        } else if (id == R.id.nav_AddClient) {
             AddClientFragment fragment=new AddClientFragment();
             FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
@@ -107,12 +107,23 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_logout) {
+        }else if (id == R.id.nav_sendEmail) {
+            SendEmailFragment fragment=new SendEmailFragment();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,fragment);
+            fragmentTransaction.commit();
+        }
+        else if(id==R.id.nav_googleMaps){
+            MapFragment fragment=new MapFragment();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,fragment);
+            fragmentTransaction.commit();
+        }
+        else if (id == R.id.nav_logout) {
             RemoveSession();
             Intent logout=new Intent(MainActivity.this, LoginActivity.class);
             MainActivity.this.startActivity(logout);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

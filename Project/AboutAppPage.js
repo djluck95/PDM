@@ -28,7 +28,7 @@ class AboutAppPage extends Component {
     renderScene(route, navigator) {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent:'center'}}>
-                <Text>Magazin este o aplicatie care faciliteaza usoara gestiune a clientilor unui antreprenor.</Text>
+                <Text>Store este o aplicatie pentru gestionarea cientilor unui antreprenor.</Text>
             </View>
         );
     }

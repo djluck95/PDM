@@ -1,4 +1,4 @@
-package com.example.Darius.myapplication;
+package com.example.darius.myapplication;
 
 import org.junit.Test;
 

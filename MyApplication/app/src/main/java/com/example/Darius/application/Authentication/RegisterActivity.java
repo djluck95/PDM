@@ -1,4 +1,4 @@
-package com.example.Darius.application.Authentication;
+package com.example.darius.application.Authentication;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.Darius.application.Database.DBController;
+import com.example.darius.application.Database.DBController;
 
-import com.example.Darius.myapplication.R;
+import com.example.darius.myapplication.R;
 
 public class RegisterActivity extends Activity {
     DBController dbController;

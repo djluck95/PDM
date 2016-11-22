@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
@@ -11,7 +10,7 @@ app.post('/Myclients',function(request,response){
 	console.log('Trying to get clients for user with id: '+id);
 	var mysql = require('mysql');
     var connection = mysql.createConnection({
-      host     : 'localhost',
+       host     : 'localhost',
       user     : 'root',
       password : 'darius',
       database : 'magazin',
@@ -43,7 +42,7 @@ app.post('/Login', function(request, response) {
   console.log('Trying to log user: '+username);
   var mysql = require('mysql');
     var connection = mysql.createConnection({
-      host     : 'localhost',
+       host     : 'localhost',
       user     : 'root',
       password : 'darius',
       database : 'magazin',
@@ -57,12 +56,15 @@ app.post('/Login', function(request, response) {
       if (!err){  
         if(row.length>0)
         {    
-        	console.log("Login with success for user :"+row[0].FirstName);
+        	console.log("Login with success for user :"+row[0].Username);
             response.json({data:row});
         }else{
-            console.log("User login with failure");
+            console.log("User login failed !!");
             response.json({data:null});
         }
+      }
+      else{
+    		response.json({data:null});
       }
     });
     connection.end();
@@ -77,7 +79,7 @@ app.post('/Register', function(request, response) {
   console.log('Trying to register user: '+username);
   var mysql      = require('mysql');
     var connection = mysql.createConnection({
-      host     : 'localhost',
+       host     : 'localhost',
       user     : 'root',
       password : 'darius',
       database : 'magazin',
@@ -102,7 +104,7 @@ app.post('/Register', function(request, response) {
 });
 
 
-app.post('/Addclient', function(request, response) {
+app.post('/AddClient', function(request, response) {
   var firstname=request.query.firstname;
   var lastname=request.query.lastname;
   var email=request.query.email;
@@ -113,7 +115,7 @@ app.post('/Addclient', function(request, response) {
   console.log('Trying to add client: '+email);
   var mysql      = require('mysql');
     var connection = mysql.createConnection({
-      host     : 'localhost',
+       host     : 'localhost',
       user     : 'root',
       password : 'darius',
       database : 'magazin',
@@ -126,18 +128,75 @@ app.post('/Addclient', function(request, response) {
     connection.query(query, function(err, row, fields) {
       console.log("Retrieving results...");
       if (!err){  
-            console.log("client added with success...");
+            console.log("Client added with success...");
             response.json({valid:1});
       }
       else{
-        console.log("client already exist..");
+        console.log("Client already exist..");
         response.json({valid:0});
       }
     });
     connection.end();
 });
 
+app.post('/SaveUser', function(request, response) {
+  var firstname=request.query.firstname;
+  var lastname=request.query.lastname;
+  var id=request.query.id;
+  console.log('Trying to save User Details');
+  var mysql      = require('mysql');
+    var connection = mysql.createConnection({
+       host     : 'localhost',
+      user     : 'root',
+      password : 'darius',
+      database : 'magazin',
+	  port: 3307
+    });
 
-app.listen(3000,'192.168.15.103', function () {
+    connection.connect();
+    var query='UPDATE user set FirstName="'+firstname+'", LastName="'+lastname+'" where ID='+id;
+    console.log(query);
+    connection.query(query, function(err, row, fields) {
+      if (!err){  
+            console.log("User saved with success");
+            response.json({valid:1});
+      }
+      else{
+        console.log("Server error");
+        response.json({valid:0});
+      }
+    });
+    connection.end();
+});
+app.post('/SendEmail', function(request, response) {
+  var email=request.query.email;
+  var subject=request.query.subject;
+  var body=request.query.body;
+  console.log("Trying to send email to: "+email+
+  			  "\nSubject: "+subject+
+  			  "\nBody: "+body
+  );
+  var nodemailer = require('nodemailer');
+
+  // create reusable transporter object using the default SMTP transport
+  var transporter = nodemailer.createTransport({
+  	service:'Gmail',
+  	auth:{
+  		user:'dtm1995cj.DM@gmail.com',
+  		pass:'password'
+  	}
+  });
+  console.log('\ntransporter created');
+  transporter.sendMail({
+  	from:'dtm1995cj.DM@gmail.com',
+  	to:email,
+  	subject:subject,
+  	text:body
+  });
+  console.log('\nemail send with success');
+  response.json({valid:1});
+});
+
+app.listen(3000,'192.168.15.102', function () {
   console.log('Android application listening on port 3000!');
 });

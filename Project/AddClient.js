@@ -1,5 +1,5 @@
 /**
- * Created by Darius on 11/6/2016.
+ * Created by Darius on 11/7/2016.
  */
 'use strict';
 
@@ -40,7 +40,7 @@ class AddClient extends Component {
                 } />
         );
     }
-    _addClient() {
+    _AddClient() {
         let firstname = this.state.firstname;
         let lastname = this.state.lastname;
         let email = this.state.email;
@@ -70,9 +70,9 @@ class AddClient extends Component {
         this.setState({
             visible:!this.state.visible
         });
-        let serverUrl='http://192.168.15.103:3000';
+        let serverUrl='http://192.168.15.102:3000';
         setTimeout(()=>{
-            fetch(serverUrl+'/Addclients?firstname=' + firstname +
+            fetch(serverUrl+'/AddClient?firstname=' + firstname +
                             '&lastname=' + lastname +
                             '&email=' + email +
                             '&age=' + age +
@@ -146,7 +146,7 @@ class AddClient extends Component {
                 <Button
                     style={{fontSize: 20, color: 'green',backgroundColor:'pink'}}
                     styleDisabled={{color: 'red'}}
-                    onPress={() => this._addClient()}>
+                    onPress={() => this._AddClient()}>
                     Add Client
                 </Button>
             </View>

@@ -1,5 +1,5 @@
 /**
- * Created by Darius on 11/6/2016.
+ * Created by Darius on 11/7/2016.
  */
 'use strict';
 
@@ -20,7 +20,7 @@ class AfterLogin extends Component {
         super(props);
         const ds=new ListView.DataSource({rowHasChanged:(r1,r2)=>r1!=r2});
         this.state={
-            jsonUrl:'http://192.168.15.103:3000/Myclients?userId='+1,
+            jsonUrl:'http://192.168.15.102:3000/Myclients?userId='+1,
             dataSource:ds.cloneWithRows(['n'])
         };
     }

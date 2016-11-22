@@ -1,4 +1,4 @@
-package com.example.Darius.application.Model;
+package com.example.darius.application.Model;
 
 public class User {
     private int ID;

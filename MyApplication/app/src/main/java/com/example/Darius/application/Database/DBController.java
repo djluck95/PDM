@@ -1,6 +1,6 @@
-package com.example.Darius.application.Database;
+package com.example.darius.application.Database;
 import android.os.StrictMode;
-import com.example.Darius.application.Model.*;
+import com.example.darius.application.Model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,14 +16,15 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 public class DBController{
     private StrictMode.ThreadPolicy policy;
     private HttpClient httpclient;
-    private String ip = "192.168.15.103";
+    private String serverUrl;
     public DBController(){
         this.policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(this.policy);
         this.httpclient=new DefaultHttpClient();
+        this.serverUrl="http://192.168.15.102:3000";
     }
     public User login_user(final String username, final String password){
-        String url = "http://"+ip+":3000/Login";
+        String url = serverUrl+"/Login";
         HttpPost request=new HttpPost(url+"?username="+username+"&password="+password);
         BasicResponseHandler handler = new BasicResponseHandler();
         String result = "";
@@ -43,7 +44,7 @@ public class DBController{
         }
     }
     public int register_user(final String firstname,final String lastname,final String username, final String password){
-        String url = "http://"+ip+":3000/Register";
+        String url = serverUrl + "/Register";
         HttpPost request=new HttpPost(url+"?firstname="+firstname+"&lastname="+lastname+"&username="+username+"&password="+password);
         BasicResponseHandler handler = new BasicResponseHandler();
         String result = "";
@@ -57,7 +58,7 @@ public class DBController{
         }
     }
     public int add_client(String firstname, String lastname, String email, int age, String phone, String country, int userid){
-        String url = "http://"+ip+":3000/Addclient";
+        String url = serverUrl+ "/AddClient";
         HttpPost request=new HttpPost(url+"?firstname="+firstname+
                                         "&lastname="+lastname+
                                         "&email="+email+
@@ -76,12 +77,12 @@ public class DBController{
             return -1;
         }
     }
-    public ArrayList<String> myClients(int userId){
-        String url = "http://"+ip+":3000/Myclients";
+    public ArrayList<String> myclients(int userId){
+        String url = serverUrl+ "/Myclients";
         HttpPost request=new HttpPost(url+"?userId="+userId);
         BasicResponseHandler handler = new BasicResponseHandler();
         ArrayList<String> clientsList = new ArrayList<String>();
-        String[] myClients=new String[]{};
+        String[] myclients=new String[]{};
         String result="";
         try {
             result = httpclient.execute(request, handler);
@@ -99,6 +100,47 @@ public class DBController{
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    public ArrayList<String> myclientsEmail(int userId){
+        String url = serverUrl+ "/Myclients";
+        HttpPost request=new HttpPost(url+"?userId="+userId);
+        BasicResponseHandler handler = new BasicResponseHandler();
+        ArrayList<String> clientsList = new ArrayList<String>();
+        String[] myclients=new String[]{};
+        String result="";
+        try {
+            result = httpclient.execute(request, handler);
+            JSONArray jsonarray = new JSONArray(result);
+            for (int i = 0; i < jsonarray.length(); i++) {
+                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                String email=jsonobject.getString("Email");
+                clientsList.add(email);
+            }
+            return clientsList;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public int SaveUserDetails(int userID,String firstname,String lastname){
+        String url = serverUrl+ "/SaveUser";
+        HttpPost request=new HttpPost(url+"?id="+userID+
+                "&firstname="+firstname+
+                "&lastname="+lastname
+        );
+        String result="";
+        BasicResponseHandler handler = new BasicResponseHandler();
+        try {
+            result = httpclient.execute(request, handler);
+            JSONObject toJson=new JSONObject(result);
+            return toJson.getInt("valid");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
         }
     }
 }

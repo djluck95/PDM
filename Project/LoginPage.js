@@ -29,7 +29,7 @@ class LoginPage extends Component {
          <Navigator
             renderScene={this.renderScene.bind(this)}
             navigationBar={
-               <Navigator.NavigationBar style={{backgroundColor: '#1d8427', alignItems: 'center'}}
+               <Navigator.NavigationBar style={{backgroundColor: '#258c29', alignItems: 'center'}}
                 routeMapper={NavigationBarRouteMapper} />
             } />
        );
@@ -40,7 +40,7 @@ class LoginPage extends Component {
         });
         let username = this.state.username;
         let password = this.state.password;
-        let serverUrl='http://192.168.15.103:3000';
+        let serverUrl='http://192.168.15.102:3000';
         setTimeout(()=>{
             fetch(serverUrl+'/Login?username=' + username + '&password=' + password, {
                 method: 'POST',
@@ -78,7 +78,7 @@ class LoginPage extends Component {
     }
     renderScene(route, navigator) {
           let pic = {
-              uri: 'http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-11/256/shop-icon.png'
+              uri: 'http://www.psdgraphics.com/file/market-store-icon.jpg'
           };
           return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

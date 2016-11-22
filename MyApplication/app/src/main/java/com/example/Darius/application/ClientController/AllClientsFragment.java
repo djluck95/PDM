@@ -1,4 +1,4 @@
-package com.example.Darius.application.ClientController;
+package com.example.darius.application.ClientController;
 
 
 import android.content.Context;
@@ -11,12 +11,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.Darius.application.Database.DBController;
-import com.example.Darius.myapplication.R;
+import com.example.darius.application.Database.DBController;
+import com.example.darius.myapplication.R;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ import java.util.ArrayList;
  */
 public class AllClientsFragment extends Fragment {
 
-    private static String[] CLIENTS = new String[]{"ALA","BALA","CACA"};
+    private static String[] clients = new String[]{};
     private DBController dbController;
     public AllClientsFragment() {
         // Required empty public constructor
@@ -45,11 +47,23 @@ public class AllClientsFragment extends Fragment {
         dbController=new DBController();
         SharedPreferences settings= PreferenceManager.getDefaultSharedPreferences(getContext());
         int UserID=settings.getInt("id",0);
-        ArrayList<String> result = dbController.myClients(UserID);
-        CLIENTS =result.toArray(new String[0]);
-        ListAdapter LA=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, CLIENTS);
-        ListView listView=(ListView) v.findViewById(R.id.clientsList);
+        //get clients for doctors
+        ArrayList<String> result = dbController.myclients(UserID);
+        clients=result.toArray(new String[0]);
+
+        ListAdapter LA=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,clients);
+        final ListView listView=(ListView) v.findViewById(R.id.clientsList);
         listView.setAdapter(LA);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    Toast.makeText(getActivity(), "Here is an Client", Toast.LENGTH_LONG).show();
+                }catch(Exception e){
+                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         return v;
     }
 

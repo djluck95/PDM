@@ -1,4 +1,4 @@
-package com.example.Darius.application.ClientController;
+package com.example.darius.application.ClientController;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.Darius.myapplication.R;
+import com.example.darius.myapplication.R;
 
 
 /**

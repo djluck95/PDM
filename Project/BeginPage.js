@@ -23,7 +23,7 @@ class BeginPage extends Component {
   render() {
     return (
       <View style={{flex: 1, backgroundColor: '#258c29', alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{color: 'white', fontSize: 32,}}>Magazin</Text>
+        <Text style={{color: 'white', fontSize: 32,}}>Store</Text>
       </View>
     );
   }
